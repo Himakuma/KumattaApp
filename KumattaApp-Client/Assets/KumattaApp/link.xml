@@ -1,0 +1,7 @@
+<linker>
+    <assembly fullname="UnityEngine">
+       <type fullname="UnityEngine.Application" preserve="fields">
+            <property name="platform"/>
+        </type>
+    </assembly>
+</linker>
