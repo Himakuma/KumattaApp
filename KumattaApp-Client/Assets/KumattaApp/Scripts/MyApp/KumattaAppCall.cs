@@ -14,15 +14,21 @@ public class KumattaAppCall : MonoBehaviour
 
     public async void CallTest()
     {
-        string host = "ローカルのIP";
+        string host = "localhost";
         int port = 5001;
         var channel = new Channel(host, port, ChannelCredentials.Insecure);
         //var channel = new Channel(host, port, new SslCredentials());
 
+        var param = new SumAsyncParam()
+        {
+            X = 100,
+            Y = 23
+        };
+
         var client = MagicOnionClient.Create<IMyFirstService>(channel);
-        var result = await client.SumAsync(100, 23);
+        var result = await client.SumAsync(param);
 
         var textUI = FindObjectOfType<TextMeshProUGUI>();
-        textUI.text = $"Result: {result}";
+        textUI.text = $"Result: {result.Value}";
     }
 }

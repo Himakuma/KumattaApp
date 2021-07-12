@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Compile Include="..\KumattaApp-Client\Assets\KumattaApp\Scripts\MagicOnion\Server\**\*.cs" Link="Server/%(RecursiveDir)/%(FileName)%(Extension)" />
+    <Compile Include="..\KumattaApp-Client\Assets\KumattaApp\Scripts\MagicOnion\Entity\**\*.cs" Link="Entity/%(RecursiveDir)/%(FileName)%(Extension)" />
   </ItemGroup>
 
   <Target Name="GenerateMessagePack" AfterTargets="Compile">

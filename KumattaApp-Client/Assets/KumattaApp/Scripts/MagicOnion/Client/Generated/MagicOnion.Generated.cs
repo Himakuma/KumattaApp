@@ -80,9 +80,8 @@ namespace MagicOnion.Resolvers
 
         static MagicOnionResolverGetFormatterHelper()
         {
-            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(1)
+            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(0)
             {
-                {typeof(global::MagicOnion.DynamicArgumentTuple<int, int>), 0 },
             };
         }
 
@@ -96,7 +95,6 @@ namespace MagicOnion.Resolvers
 
             switch (key)
             {
-                case 0: return new global::MagicOnion.DynamicArgumentTupleFormatter<int, int>(default(int), default(int));
                 default: return null;
             }
         }
@@ -180,12 +178,12 @@ namespace MyApp.Shared {
    
         static ResponseContext _SumAsync(RequestContext __context)
         {
-            return CreateResponseContext<DynamicArgumentTuple<int, int>, int>(__context, SumAsyncMethod);
+            return CreateResponseContext<global::SumAsyncParam, global::SumAsyncResult>(__context, SumAsyncMethod);
         }
 
-        public global::MagicOnion.UnaryResult<int> SumAsync(int x, int y)
+        public global::MagicOnion.UnaryResult<global::SumAsyncResult> SumAsync(global::SumAsyncParam param)
         {
-            return InvokeAsync<DynamicArgumentTuple<int, int>, int>("IMyFirstService/SumAsync", new DynamicArgumentTuple<int, int>(x, y), SumAsyncDelegate);
+            return InvokeAsync<global::SumAsyncParam, global::SumAsyncResult>("IMyFirstService/SumAsync", param, SumAsyncDelegate);
         }
     }
 }

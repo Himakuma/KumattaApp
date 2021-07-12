@@ -7,10 +7,15 @@ namespace KumattaAppServer.Services
 {
     public class MyFirstService : ServiceBase<IMyFirstService>, IMyFirstService
     {
-        public async UnaryResult<int> SumAsync(int x, int y)
+        public async UnaryResult<SumAsyncResult> SumAsync(SumAsyncParam param)
         {
-            Console.WriteLine($"Received:{x}, {y}");
-            return x + y;
+            Console.WriteLine($"Received:{param.X}, {param.Y}");
+
+            var result = new SumAsyncResult() 
+            {
+                Value = param.X + param.Y
+            };
+            return result;
         }
     }
 }
