@@ -25,6 +25,7 @@ namespace MagicOnion
 
             MagicOnionClientRegistry<MyApp.Shared.IMyFirstService>.Register((x, y, z) => new MyApp.Shared.MyFirstServiceClient(x, y, z));
 
+            StreamingHubClientRegistry<KumattaAppServer.Hubs.IChatAppHub, KumattaAppServer.Hubs.IChatAppHubReceiver>.Register((a, _, b, c, d, e) => new KumattaAppServer.Hubs.ChatAppHubClient(a, b, c, d, e));
         }
     }
 }
@@ -80,8 +81,9 @@ namespace MagicOnion.Resolvers
 
         static MagicOnionResolverGetFormatterHelper()
         {
-            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(0)
+            lookup = new global::System.Collections.Generic.Dictionary<Type, int>(1)
             {
+                {typeof(global::MagicOnion.DynamicArgumentTuple<string, string>), 0 },
             };
         }
 
@@ -95,6 +97,7 @@ namespace MagicOnion.Resolvers
 
             switch (key)
             {
+                case 0: return new global::MagicOnion.DynamicArgumentTupleFormatter<string, string>(default(string), default(string));
                 default: return null;
             }
         }
@@ -193,3 +196,152 @@ namespace MyApp.Shared {
 #pragma warning restore 414
 #pragma warning restore 612
 #pragma warning restore 618
+#pragma warning disable 618
+#pragma warning disable 612
+#pragma warning disable 414
+#pragma warning disable 219
+#pragma warning disable 168
+
+namespace KumattaAppServer.Hubs {
+    using Grpc.Core;
+    using MagicOnion;
+    using MagicOnion.Client;
+    using MessagePack;
+    using System;
+    using System.Threading.Tasks;
+
+    [Ignore]
+    public class ChatAppHubClient : StreamingHubClientBase<global::KumattaAppServer.Hubs.IChatAppHub, global::KumattaAppServer.Hubs.IChatAppHubReceiver>, global::KumattaAppServer.Hubs.IChatAppHub
+    {
+        static readonly Method<byte[], byte[]> method = new Method<byte[], byte[]>(MethodType.DuplexStreaming, "IChatAppHub", "Connect", MagicOnionMarshallers.ThroughMarshaller, MagicOnionMarshallers.ThroughMarshaller);
+
+        protected override Method<byte[], byte[]> DuplexStreamingAsyncMethod { get { return method; } }
+
+        readonly global::KumattaAppServer.Hubs.IChatAppHub __fireAndForgetClient;
+
+        public ChatAppHubClient(CallInvoker callInvoker, string host, CallOptions option, MessagePackSerializerOptions serializerOptions, IMagicOnionClientLogger logger)
+            : base(callInvoker, host, option, serializerOptions, logger)
+        {
+            this.__fireAndForgetClient = new FireAndForgetClient(this);
+        }
+        
+        public global::KumattaAppServer.Hubs.IChatAppHub FireAndForget()
+        {
+            return __fireAndForgetClient;
+        }
+
+        protected override void OnBroadcastEvent(int methodId, ArraySegment<byte> data)
+        {
+            switch (methodId)
+            {
+                case -1297457280: // OnJoin
+                {
+                    var result = MessagePackSerializer.Deserialize<string>(data, serializerOptions);
+                    receiver.OnJoin(result); break;
+                }
+                case 532410095: // OnLeave
+                {
+                    var result = MessagePackSerializer.Deserialize<string>(data, serializerOptions);
+                    receiver.OnLeave(result); break;
+                }
+                case -552695459: // OnSendMessage
+                {
+                    var result = MessagePackSerializer.Deserialize<DynamicArgumentTuple<string, string>>(data, serializerOptions);
+                    receiver.OnSendMessage(result.Item1, result.Item2); break;
+                }
+                default:
+                    break;
+            }
+        }
+
+        protected override void OnResponseEvent(int methodId, object taskCompletionSource, ArraySegment<byte> data)
+        {
+            switch (methodId)
+            {
+                case -733403293: // JoinAsync
+                {
+                    var result = MessagePackSerializer.Deserialize<Nil>(data, serializerOptions);
+                    ((TaskCompletionSource<Nil>)taskCompletionSource).TrySetResult(result);
+                    break;
+                }
+                case 1368362116: // LeaveAsync
+                {
+                    var result = MessagePackSerializer.Deserialize<Nil>(data, serializerOptions);
+                    ((TaskCompletionSource<Nil>)taskCompletionSource).TrySetResult(result);
+                    break;
+                }
+                case -601690414: // SendMessageAsync
+                {
+                    var result = MessagePackSerializer.Deserialize<Nil>(data, serializerOptions);
+                    ((TaskCompletionSource<Nil>)taskCompletionSource).TrySetResult(result);
+                    break;
+                }
+                default:
+                    break;
+            }
+        }
+   
+        public global::System.Threading.Tasks.Task JoinAsync(string roomName, string userName)
+        {
+            return WriteMessageWithResponseAsync<DynamicArgumentTuple<string, string>, Nil>(-733403293, new DynamicArgumentTuple<string, string>(roomName, userName));
+        }
+
+        public global::System.Threading.Tasks.Task LeaveAsync()
+        {
+            return WriteMessageWithResponseAsync<Nil, Nil>(1368362116, Nil.Default);
+        }
+
+        public global::System.Threading.Tasks.Task SendMessageAsync(string userName, string message)
+        {
+            return WriteMessageWithResponseAsync<DynamicArgumentTuple<string, string>, Nil>(-601690414, new DynamicArgumentTuple<string, string>(userName, message));
+        }
+
+
+        class FireAndForgetClient : global::KumattaAppServer.Hubs.IChatAppHub
+        {
+            readonly ChatAppHubClient __parent;
+
+            public FireAndForgetClient(ChatAppHubClient parentClient)
+            {
+                this.__parent = parentClient;
+            }
+
+            public global::KumattaAppServer.Hubs.IChatAppHub FireAndForget()
+            {
+                throw new NotSupportedException();
+            }
+
+            public Task DisposeAsync()
+            {
+                throw new NotSupportedException();
+            }
+
+            public Task WaitForDisconnect()
+            {
+                throw new NotSupportedException();
+            }
+
+            public global::System.Threading.Tasks.Task JoinAsync(string roomName, string userName)
+            {
+                return __parent.WriteMessageAsync<DynamicArgumentTuple<string, string>>(-733403293, new DynamicArgumentTuple<string, string>(roomName, userName));
+            }
+
+            public global::System.Threading.Tasks.Task LeaveAsync()
+            {
+                return __parent.WriteMessageAsync<Nil>(1368362116, Nil.Default);
+            }
+
+            public global::System.Threading.Tasks.Task SendMessageAsync(string userName, string message)
+            {
+                return __parent.WriteMessageAsync<DynamicArgumentTuple<string, string>>(-601690414, new DynamicArgumentTuple<string, string>(userName, message));
+            }
+
+        }
+    }
+}
+
+#pragma warning restore 168
+#pragma warning restore 219
+#pragma warning restore 414
+#pragma warning restore 618
+#pragma warning restore 612

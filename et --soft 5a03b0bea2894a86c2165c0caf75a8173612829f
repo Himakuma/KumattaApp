@@ -1,0 +1,35 @@
+[33mcommit 5a03b0bea2894a86c2165c0caf75a8173612829f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: kumatta_ss <ssapp.devuser@gmail.com>
+Date:   Tue Jul 13 18:25:44 2021 +0900
+
+    *.assetを制限に追加
+
+[33mcommit 0b622cf32c5990c7441f5ee71e601cfbcffc7945[m
+Author: kumatta_ss <ssapp.devuser@gmail.com>
+Date:   Tue Jul 13 18:22:23 2021 +0900
+
+    作成中
+
+[33mcommit 01f66c08c85465a2b50ced87a378229e0df590e7[m[33m ([m[1;33mtag: 1.2.0[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: kumatta_ss <ssapp.devuser@gmail.com>
+Date:   Mon Jul 12 20:23:28 2021 +0900
+
+    UnityとMagicOnionで、オブジェクトをやり取りする
+
+[33mcommit c8235f523d5888feb75df225c4253c29463061f9[m[33m ([m[1;33mtag: 1.1.0[m[33m)[m
+Author: Himakuma(kumatta_ss) <ssapp.devuser@gmail.com>
+Date:   Sat Jul 10 18:00:04 2021 +0900
+
+    UnityとMagicOnionのAndroid・iOS動作確認編
+
+[33mcommit 9c79b52057c7b1e1ba8ce9494095e614621eb87d[m[33m ([m[1;33mtag: 1.0.0[m[33m)[m
+Author: kumatta_ss <ssapp.devuser@gmail.com>
+Date:   Fri Jul 9 14:20:23 2021 +0900
+
+    記事のサンプルプロジェクト
+
+[33mcommit 5d2bb2d07c35aeea900afe7a4202ad2a8abc4689[m
+Author: kumatta_ss <ssapp.devuser@gmail.com>
+Date:   Fri Jul 9 13:28:17 2021 +0900
+
+    Initial commit
