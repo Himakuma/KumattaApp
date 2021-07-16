@@ -70,6 +70,7 @@ namespace KumattaAppServer.Hubs
         /// </summary>
         private string userName = "名無し";
 
+
         private void Start()
         {
             // 画面を非表示
@@ -92,7 +93,8 @@ namespace KumattaAppServer.Hubs
             var sendButton = chatPage.GetComponentInChildren<Button>(true);
             sendButton.onClick.AddListener(OnClick_SendButton);
 
-            Init();
+            // 入室画面を表示
+            joinPage.SetActive(true);
         }
 
         private async void OnDestroy()
@@ -116,6 +118,10 @@ namespace KumattaAppServer.Hubs
                 userName = nameInput.text;
             }
 
+            // サーバーへ接続
+            channel = GrpcChannelx.ForAddress("http://192.168.179.4:5001");
+            streamingClient = await StreamingHubClient.ConnectAsync<IChatAppHub, IChatAppHubReceiver>(channel, this, cancellationToken: shutdownCancellation.Token);
+
             await streamingClient.JoinAsync(roomName, userName);
             joinPage.SetActive(false);
             chatPage.SetActive(true);
@@ -130,17 +136,6 @@ namespace KumattaAppServer.Hubs
             messageInput.text = "";
         }
         #endregion
-
-        /// <summary>
-        /// 初期処理
-        /// </summary>
-        private async void Init()
-        {
-            // サーバーへ接続
-            channel = GrpcChannelx.ForAddress("http://localhost:5001");
-            streamingClient = await StreamingHubClient.ConnectAsync<IChatAppHub, IChatAppHubReceiver>(channel, this, cancellationToken: shutdownCancellation.Token);
-            joinPage.SetActive(true);
-        }
 
 
         #region MagicOnion　サーバー⇒クライアントの受信
