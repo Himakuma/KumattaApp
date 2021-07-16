@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Grpc.Core;
 using MagicOnion.Client;
 using MyApp.Shared;

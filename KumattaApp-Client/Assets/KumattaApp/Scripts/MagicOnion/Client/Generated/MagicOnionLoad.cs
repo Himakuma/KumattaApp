@@ -1,4 +1,4 @@
-using Grpc.Core;
+ï»¿using Grpc.Core;
 using MagicOnion.Unity;
 using MessagePack;
 using MessagePack.Resolvers;
@@ -23,13 +23,13 @@ public class MagicOnionLoad
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void OnRuntimeInitialize()
     {
-        // gRPC‚Ì‰Šú‰»
+        // gRPCã®åˆæœŸåŒ–
         GrpcChannelProviderHost.Initialize(new DefaultGrpcChannelProvider(new[]
         {
-            // ƒL[ƒvƒAƒ‰ƒCƒu‚ğ5•b’PˆÊ‚É‘—MiƒfƒtƒHƒ‹ƒg2ŠÔj
+            // ã‚­ãƒ¼ãƒ—ã‚¢ãƒ©ã‚¤ãƒ–ã‚’5ç§’å˜ä½ã«é€ä¿¡ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ2æ™‚é–“ï¼‰
             new ChannelOption("grpc.keepalive_time_ms", 5000),
 
-            // ƒL[ƒvƒAƒ‰ƒCƒu‚Ìpingƒ^ƒCƒ€ƒAƒEƒg‚ğ5•biƒfƒtƒHƒ‹ƒg20•bj
+            // ã‚­ãƒ¼ãƒ—ã‚¢ãƒ©ã‚¤ãƒ–ã®pingã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã‚’5ç§’ï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ20ç§’ï¼‰
             new ChannelOption("grpc.keepalive_timeout_ms", 5000),
         }));
     }

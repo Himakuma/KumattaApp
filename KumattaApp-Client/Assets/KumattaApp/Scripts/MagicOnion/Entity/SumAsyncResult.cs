@@ -1,4 +1,4 @@
-using MessagePack;
+﻿using MessagePack;
 
 [MessagePackObject]
 public class SumAsyncResult 

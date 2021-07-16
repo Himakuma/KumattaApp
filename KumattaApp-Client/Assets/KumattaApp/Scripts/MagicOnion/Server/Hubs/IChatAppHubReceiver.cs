@@ -1,21 +1,21 @@
-namespace KumattaAppServer.Hubs
+ï»¿namespace KumattaAppServer.Hubs
 {
     public interface IChatAppHubReceiver
     {
         /// <summary>
-        /// “üº’Ê’m
+        /// å…¥å®¤é€šçŸ¥
         /// </summary>
-        /// <param name="userName">ƒ†[ƒU[–¼</param>
+        /// <param name="userName">ãƒ¦ãƒ¼ã‚¶ãƒ¼å</param>
         void OnJoin(string userName);
 
         /// <summary>
-        /// ‘Şo’Ê’m
+        /// é€€å‡ºé€šçŸ¥
         /// </summary>
-        /// <param name="userName">ƒ†[ƒU[–¼</param>
+        /// <param name="userName">ãƒ¦ãƒ¼ã‚¶ãƒ¼å</param>
         void OnLeave(string userName);
 
         /// <summary>
-        /// ƒƒbƒZ[ƒW’Ê’m
+        /// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€šçŸ¥
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="message"></param>

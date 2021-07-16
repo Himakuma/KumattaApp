@@ -1,4 +1,4 @@
-using MagicOnion;
+ï»¿using MagicOnion;
 using System.Threading.Tasks;
 
 namespace KumattaAppServer.Hubs
@@ -7,24 +7,24 @@ namespace KumattaAppServer.Hubs
     public interface IChatAppHub : IStreamingHub<IChatAppHub, IChatAppHubReceiver>
     {
         /// <summary>
-        /// “üº’Ê’m
+        /// å…¥å®¤é€šçŸ¥
         /// </summary>
-        /// <param name="roomName">ƒ‹[ƒ€–¼</param>
-        /// <param name="userName">ƒ†[ƒU[–¼</param>
+        /// <param name="roomName">ãƒ«ãƒ¼ãƒ å</param>
+        /// <param name="userName">ãƒ¦ãƒ¼ã‚¶ãƒ¼å</param>
         /// <returns></returns>
         Task JoinAsync(string roomName, string userName);
 
         /// <summary>
-        /// ‘Şº’Ê’m
+        /// é€€å®¤é€šçŸ¥
         /// </summary>
         /// <returns></returns>
         Task LeaveAsync();
 
         /// <summary>
-        /// ƒƒbƒZ[ƒW’Ê’m
+        /// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€šçŸ¥
         /// </summary>
-        /// <param name="userName">ƒ†[ƒU[–¼</param>
-        /// <param name="message">ƒƒbƒZ[ƒW</param>
+        /// <param name="userName">ãƒ¦ãƒ¼ã‚¶ãƒ¼å</param>
+        /// <param name="message">ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸</param>
         /// <returns></returns>
         Task SendMessageAsync(string userName, string message);
     }

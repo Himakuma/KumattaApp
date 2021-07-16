@@ -1,4 +1,4 @@
-using Grpc.Core;
+ï»¿using Grpc.Core;
 using MagicOnion;
 using MagicOnion.Client;
 using System.Threading;
@@ -10,81 +10,81 @@ namespace KumattaAppServer.Hubs
 {
     public class ChatApp : MonoBehaviour, IChatAppHubReceiver
     {
-        #region “üºƒy[ƒW
+        #region å…¥å®¤ãƒšãƒ¼ã‚¸
         /// <summary>
-        /// “üºƒy[ƒW
+        /// å…¥å®¤ãƒšãƒ¼ã‚¸
         /// </summary>
         [SerializeField]
         private GameObject joinPage;
 
         /// <summary>
-        /// ƒ†[ƒU[–¼“ü—Í
+        /// ãƒ¦ãƒ¼ã‚¶ãƒ¼åå…¥åŠ›
         /// </summary>
         private TMP_InputField nameInput;
         #endregion
 
-        #region ƒ`ƒƒƒbƒgƒy[ƒW
+        #region ãƒãƒ£ãƒƒãƒˆãƒšãƒ¼ã‚¸
         /// <summary>
-        /// ƒ`ƒƒƒbƒgƒy[ƒW
+        /// ãƒãƒ£ãƒƒãƒˆãƒšãƒ¼ã‚¸
         /// </summary>
         [SerializeField]
         private GameObject chatPage;
 
         /// <summary>
-        /// ƒ`ƒƒƒbƒg•\¦
+        /// ãƒãƒ£ãƒƒãƒˆè¡¨ç¤º
         /// </summary>
         private TextMeshProUGUI chatComment;
 
         /// <summary>
-        /// ƒƒbƒZ[ƒW“ü—Í
+        /// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å…¥åŠ›
         /// </summary>
         private TMP_InputField messageInput;
         #endregion
 
 
-        #region MagicOnion—p
+        #region MagicOnionç”¨
         /// <summary>
-        /// ’ÊMƒLƒƒƒ“ƒZƒ‹—pƒg[ƒNƒ“
+        /// é€šä¿¡ã‚­ãƒ£ãƒ³ã‚»ãƒ«ç”¨ãƒˆãƒ¼ã‚¯ãƒ³
         /// </summary>
         private CancellationTokenSource shutdownCancellation = new CancellationTokenSource();
 
         /// <summary>
-        /// Ú‘±ƒ`ƒƒƒ“ƒlƒ‹
+        /// æ¥ç¶šãƒãƒ£ãƒ³ãƒãƒ«
         /// </summary>
         private ChannelBase channel;
 
         /// <summary>
-        /// ƒT[ƒo[ŒÄo‚µ—p
+        /// ã‚µãƒ¼ãƒãƒ¼å‘¼å‡ºã—ç”¨
         /// </summary>
         private IChatAppHub streamingClient;
         #endregion
 
 
         /// <summary>
-        /// ƒ‹[ƒ€–¼
+        /// ãƒ«ãƒ¼ãƒ å
         /// </summary>
         private string roomName = "ChatAPP";
 
         /// <summary>
-        /// ƒ†[ƒU[–¼
+        /// ãƒ¦ãƒ¼ã‚¶ãƒ¼å
         /// </summary>
-        private string userName = "–¼–³‚µ";
+        private string userName = "åç„¡ã—";
 
         private void Start()
         {
-            // ‰æ–Ê‚ğ”ñ•\¦
+            // ç”»é¢ã‚’éè¡¨ç¤º
             joinPage.SetActive(false);
             chatPage.SetActive(false);
 
 
-            // “üºƒy[ƒWİ’è
+            // å…¥å®¤ãƒšãƒ¼ã‚¸è¨­å®š
             nameInput = joinPage.GetComponentInChildren<TMP_InputField>(true);
 
             var joinButton = joinPage.GetComponentInChildren<Button>(true);
             joinButton.onClick.AddListener(OnClick_JoinButton);
 
 
-            // ƒ`ƒƒƒbƒgƒ‹[ƒ€İ’è
+            // ãƒãƒ£ãƒƒãƒˆãƒ«ãƒ¼ãƒ è¨­å®š
             chatComment = chatPage.GetComponentInChildren<TextMeshProUGUI>(true);
             chatComment.text = "";
             messageInput = chatPage.GetComponentInChildren<TMP_InputField>(true);
@@ -97,17 +97,17 @@ namespace KumattaAppServer.Hubs
 
         private async void OnDestroy()
         {
-            // ’ÊMƒLƒƒƒ“ƒZƒ‹
+            // é€šä¿¡ã‚­ãƒ£ãƒ³ã‚»ãƒ«
             shutdownCancellation.Cancel();
 
-            // Ø’fˆ—
+            // åˆ‡æ–­å‡¦ç†
             if (streamingClient != null) await streamingClient.DisposeAsync();
             if (channel != null) await channel.ShutdownAsync();
         }
 
-        #region ƒ{ƒ^ƒ“ˆ—
+        #region ãƒœã‚¿ãƒ³å‡¦ç†
         /// <summary>
-        /// “üº
+        /// å…¥å®¤
         /// </summary>
         private async void OnClick_JoinButton()
         {
@@ -122,7 +122,7 @@ namespace KumattaAppServer.Hubs
         }
 
         /// <summary>
-        /// ƒƒbƒZ[ƒW‘—M
+        /// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€ä¿¡
         /// </summary>
         private async void OnClick_SendButton()
         {
@@ -132,45 +132,45 @@ namespace KumattaAppServer.Hubs
         #endregion
 
         /// <summary>
-        /// ‰Šúˆ—
+        /// åˆæœŸå‡¦ç†
         /// </summary>
         private async void Init()
         {
-            // ƒT[ƒo[‚ÖÚ‘±
+            // ã‚µãƒ¼ãƒãƒ¼ã¸æ¥ç¶š
             channel = GrpcChannelx.ForAddress("http://localhost:5001");
             streamingClient = await StreamingHubClient.ConnectAsync<IChatAppHub, IChatAppHubReceiver>(channel, this, cancellationToken: shutdownCancellation.Token);
             joinPage.SetActive(true);
         }
 
 
-        #region MagicOnion@ƒT[ƒo[ËƒNƒ‰ƒCƒAƒ“ƒg‚ÌóM
+        #region MagicOnionã€€ã‚µãƒ¼ãƒãƒ¼â‡’ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆã®å—ä¿¡
 
         /// <summary>
-        /// “üº’Ê’m
+        /// å…¥å®¤é€šçŸ¥
         /// </summary>
-        /// <param name="userName">ƒ†[ƒU[–¼</param>
+        /// <param name="userName">ãƒ¦ãƒ¼ã‚¶ãƒ¼å</param>
         public void OnJoin(string userName)
         {
-            chatComment.text = $"{chatComment.text}{userName}‚³‚ñ‚ª“üº‚µ‚Ü‚µ‚½B\n";
+            chatComment.text = $"{chatComment.text}{userName}ã•ã‚“ãŒå…¥å®¤ã—ã¾ã—ãŸã€‚\n";
         }
 
         /// <summary>
-        /// ‘Şo’Ê’m
+        /// é€€å‡ºé€šçŸ¥
         /// </summary>
-        /// <param name="userName">ƒ†[ƒU[–¼</param>
+        /// <param name="userName">ãƒ¦ãƒ¼ã‚¶ãƒ¼å</param>
         public void OnLeave(string userName)
         {
-            chatComment.text = $"{chatComment.text}{userName}‚³‚ñ‚ª‘Şo‚µ‚Ü‚µ‚½B\n";
+            chatComment.text = $"{chatComment.text}{userName}ã•ã‚“ãŒé€€å‡ºã—ã¾ã—ãŸã€‚\n";
         }
 
         /// <summary>
-        /// ƒƒbƒZ[ƒW’Ê’m
+        /// ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸é€šçŸ¥
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="message"></param>
         public void OnSendMessage(string userName, string message)
         {
-            chatComment.text = $"{chatComment.text}{userName}F{message}\n";
+            chatComment.text = $"{chatComment.text}{userName}ï¼š{message}\n";
         }
         #endregion
     }
